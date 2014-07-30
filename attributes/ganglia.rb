@@ -15,6 +15,9 @@ default['ganglia']['spoof_hostname'] = false
 
 default['ganglia']['mod_path'] = ''
 
+# The solo means if you use chef-solo, search function can't be used any more.So you should specify some attributes manually
+default['ganglia']['solo']['gmond_collectors'] = ['127.0.0.1']
+
 # Uncomment this to override the search for server_role and just specify the host instead
 # default['ganglia']['server_host'] = 'ganglia.example.com'
 

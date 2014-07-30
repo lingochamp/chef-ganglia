@@ -57,7 +57,11 @@ when true
   if node['ganglia']['server_host']
     gmond_collectors = [node['ganglia']['server_host']]
   elsif gmond_collectors.empty?
-    gmond_collectors = search(:node, "role:#{node['ganglia']['server_role']} AND chef_environment:#{node.chef_environment}").map {|node| node['ipaddress']}
+    if Chef::Config[:solo]
+      gmond_collectors = node['ganglia']['solo']['gmond_collectors']
+    else
+      gmond_collectors = search(:node, "role:#{node['ganglia']['server_role']} AND chef_environment:#{node.chef_environment}").map {|node| node['ipaddress']}
+    end
   end rescue NoMethodError
   if gmond_collectors.empty?
      gmond_collectors = ["127.0.0.1"]
