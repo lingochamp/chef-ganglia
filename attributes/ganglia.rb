@@ -12,6 +12,7 @@ default['ganglia']['gmetad']['interactive_port'] = 8652
 default['ganglia']['gmetad']['trusted_hosts'] = nil
 default['ganglia']['gmetad']['all_trusted'] = nil
 default['ganglia']['spoof_hostname'] = false
+default['ganglia']['send_to_local'] = true
 
 default['ganglia']['mod_path'] = ''
 

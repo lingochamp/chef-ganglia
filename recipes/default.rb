@@ -73,7 +73,8 @@ when true
                :gmond_collectors => gmond_collectors,
                :ports => ports,
                :spoof_hostname => node['ganglia']['spoof_hostname'],
-               :hostname => node.hostname )
+               :hostname => node.hostname,
+               :send_to_local => node['ganglia']['send_to_local'])
     notifies :restart, "service[ganglia-monitor]"
   end
 when false
