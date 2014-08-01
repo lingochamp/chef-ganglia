@@ -51,16 +51,14 @@ when true
   gmond_collectors = []
   if node['ganglia']['server_host']
     gmond_collectors = [node['ganglia']['server_host']]
-  elsif gmond_collectors.empty?
+  else
     if Chef::Config[:solo]
       gmond_collectors = node['ganglia']['solo']['gmond_collectors']
     else
       gmond_collectors = search(:node, "role:#{node['ganglia']['server_role']} AND chef_environment:#{node.chef_environment}").map {|node| node['ipaddress']}
     end
   end rescue NoMethodError
-  if gmond_collectors.empty?
-    gmond_collectors = ['127.0.0.1']
-  end
+  gmond_collectors = ['127.0.0.1'] if gmond_collectors.empty?
   template "/etc/ganglia/gmetad.conf" do
     source "gmetad.conf.erb"
     variables( :clusters => node['ganglia']['clusterport'].to_hash,
